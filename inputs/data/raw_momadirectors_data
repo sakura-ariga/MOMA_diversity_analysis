@@ -1,0 +1,66 @@
+DepartmentFullName,DepartmentBeginYear,DepartmentEndYear,ConstituentID,DisplayName,PositionNote,PositionBeginYear,PositionEndYear,ConstituentType,AlphaSort,FirstName,MiddleName,LastName,Suffix,Nationality,ConstituentBeginDate,ConstituentEndDate,ArtistBio,Gender,VIAFID,WikidataID,ULANID
+The Museum of Modern Art,1929,NA,9168,"Alfred H. Barr, Jr.",Director,1929,1943,Individual,Barr Alfred H. Jr.,Alfred,H.,Barr,Jr.,American,1902,1981,"American, 1902–1981",Male,109252853,Q711362,500241556
+The Museum of Modern Art,1929,NA,10779,René d'Harnoncourt,Director,1949,1968,Individual,d'Harnoncourt René,René,NA,d'Harnoncourt,NA,American,1901,1968,"American, 1901–1968",Male,176768,Q7312958,500071210
+The Museum of Modern Art,1929,NA,11389,Bates Lowry,Director,1968,1969,Individual,Lowry Bates,Bates,NA,Lowry,NA,American,1924,2004,"American, 1924–2004",Male,71883331,Q4868805,500279878
+The Museum of Modern Art,1929,NA,NA,John B. Hightower,Director,1970,1972,Individual,Hightower John B.,John,Brantley,Hightower,NA,American,1933,2013,"American, 1933–2013",Male,65771126,Q15431531,NA
+The Museum of Modern Art,1929,NA,13047,Richard E. Oldenburg,Director,1972,1994,Individual,Oldenburg Richard E.,Richard,E.,Oldenburg,NA,American,1933,NA,"American, born 1933",Male,22054670,Q7328159,NA
+The Museum of Modern Art,1929,NA,30333,Glenn D. Lowry,Director,1995,NA,Individual,Lowry Glenn D.,Glenn,D.,Lowry,NA,American,1954,NA,"American, born 1954",Male,165457793,Q5568749,500251278
+Department of Painting and Sculpture,1929,NA,9168,"Alfred H. Barr, Jr.",as Director of the Museum,1929,1940,Individual,Barr Alfred H. Jr.,Alfred,H.,Barr,Jr.,American,1902,1981,"American, 1902–1981",Male,109252853,Q711362,500241556
+Department of Painting and Sculpture,1929,NA,9168,"Alfred H. Barr, Jr.",as Director of the Museum and Curator of the Department,1940,1943,Individual,Barr Alfred H. Jr.,Alfred,H.,Barr,Jr.,American,1902,1981,"American, 1902–1981",Male,109252853,Q711362,500241556
+Department of Painting and Sculpture,1929,NA,8150,James Thrall Soby,NA,1943,1945,Individual,Soby James Thrall,James,NA,Soby,NA,American,1906,1979,"American, 1906–1979",Male,110085602,Q19997542,500326188
+Department of Painting and Sculpture,1929,NA,14845,James Johnson Sweeney,NA,1945,1946,Individual,Sweeney James Johnson,James,Johnson,Sweeney,NA,American,1900,1986,"American, 1900–1986",Male,37043718,Q6136905,500258108
+Department of Painting and Sculpture,1929,NA,19286,Dorothy C. Miller,NA,1946,1949,Individual,Miller Dorothy C.,Dorothy,C.,Miller,NA,American,1904,2003,"American, 1904–2003",Female,111290627,Q5298349,500322604
+Department of Painting and Sculpture,1929,NA,9168,"Alfred H. Barr, Jr.",as Director of Museum Collections,1947,1967,Individual,Barr Alfred H. Jr.,Alfred,H.,Barr,Jr.,American,1902,1981,"American, 1902–1981",Male,109252853,Q711362,500241556
+Department of Painting and Sculpture,1929,NA,46368,Andrew Carnduff Ritchie,NA,1949,1957,Individual,Ritchie Andrew Carnduff,Andrew,Carnduff,Ritchie,NA,American,1907,1978,"American, born Scotland, 1907–1978",Male,71542523,NA,NA
+Department of Painting and Sculpture,1929,NA,9899,Peter Selz,NA,1958,1965,Individual,Selz Peter,Peter,NA,Selz,NA,American,1919,NA,"American, born Germany 1919",Male,108632298,Q2078300,NA
+Department of Painting and Sculpture,1929,NA,11389,Bates Lowry,NA,1968,1969,Individual,Lowry Bates,Bates,NA,Lowry,NA,American,1924,2004,"American, 1924–2004",Male,71883331,NA,NA
+Department of Painting and Sculpture,1929,NA,10244,William S. Lieberman,NA,1969,1971,Individual,Lieberman William S.,William,S.,Lieberman,NA,American,1923,2005,"American, 1923–2005",Male,109190713,Q19997602,NA
+Department of Painting and Sculpture,1929,NA,13938,William S. Rubin,as Chief Curator,1969,1971,Individual,Rubin William S.,William,NA,Rubin,NA,American,1927,2006,"American, 1927–2006",Male,29540160,Q951624,NA
+Department of Painting and Sculpture,1929,NA,13938,William S. Rubin,NA,1971,1988,Individual,Rubin William S.,William,NA,Rubin,NA,American,1927,2006,"American, 1927–2006",Male,29540160,Q951624,NA
+Department of Painting and Sculpture,1929,NA,12828,Kirk Varnedoe,NA,1988,2001,Individual,Varnedoe Kirk,Kirk,NA,Varnedoe,NA,American,1946,2003,"American, 1946–2003",Male,108950666,Q6415540,NA
+Department of Painting and Sculpture,1929,NA,13401,Kynaston McShine,NA,2001,2003,Individual,McShine Kynaston L.,Kynaston,NA,McShine,NA,American,1935,NA,"American, born Trinidad 1935",Male,12357173,NA,NA
+Department of Painting and Sculpture,1929,NA,9295,John Elderfield,NA,2003,2008,Individual,Elderfield John,John,NA,Elderfield,NA,British,1943,NA,"British, born 1943",Male,95695332,Q6231541,500002419
+Department of Painting and Sculpture,1929,NA,26510,Ann Temkin,NA,2008,NA,Individual,Temkin Ann,Ann,NA,Temkin,NA,American,1959,NA,"American, born 1959",Female,69045125,NA,NA
+Department of Architecture,1932,1949,2927,Philip Johnson,NA,1932,1934,Individual,Johnson Philip,Philip,NA,Johnson,NA,American,1906,2005,"American, 1906–2005",Male,108419418,Q183528,500014481
+Department of Architecture,1932,1949,16292,Philip L. Goodwin,as Chairman,1935,1948,Individual,Goodwin Philip L.,Philip,L.,Goodwin,NA,American,1885,1958,"American, 1885–1958",Male,107308378,Q21289656,500002438
+Department of Architecture,1932,1949,NA,Janet Henrich,as Director,1941,1942,Individual,Henrich Janet,Janet,NA,Henrich,NA,NA,NA,NA,NA,Female,NA,NA,NA
+Department of Architecture,1932,1949,44297,Elizabeth Mock,as Director,1942,1946,Individual,Mock Elizabeth,Elizabeth,NA,Mock,NA,American,1911,1998,"American, 1911–1998",Female,112800368,NA,NA
+Department of Industrial Design,1940,1948,9510,Eliot Noyes,NA,1940,1946,Individual,Noyes Eliot,Eliot,NA,Noyes,NA,American,1910,1977,"American, 1910–1977",Male,35560716,Q827228,500032860
+Department of Industrial Design,1940,1948,8773,"Edgar Kaufmann, Jr.",NA,1946,1949,Individual,Kaufmann Edgar Jr,Edgar,NA,Kaufmann,NA,American,1910,1989,"American, 1910–1989",Male,34608572,NA,NA
+Department of Architecture and Design,1949,NA,2927,Philip Johnson,NA,1949,1954,Individual,Johnson Philip,Philip,NA,Johnson,NA,American,1906,2005,"American, 1906–2005",Male,108419418,Q183528,500014481
+Department of Architecture and Design,1949,NA,8762,Arthur Drexler,NA,1956,1987,Individual,Drexler Arthur,Arthur,NA,Drexler,NA,American,1921,1987,"American, 1921–1987",Male,73926436,NA,NA
+Department of Architecture and Design,1949,NA,23740,Stuart Wrede,NA,1987,1992,Individual,Wrede Stuart,Stuart,NA,Wrede,NA,American,1944,NA,"American, born Finland 1944",Male,12362661,NA,NA
+Department of Architecture and Design,1949,NA,8902,Terence Riley,NA,1992,2006,Individual,Riley Terence,Terence,NA,Riley,NA,American,1954,NA,"American, born 1954",Male,NA,NA,NA
+Department of Architecture and Design,1949,NA,25399,Barry Bergdoll,NA,2007,2013,Individual,Bergdoll Barry,Barry,NA,Bergdoll,NA,American,NA,NA,American,Male,66519280,Q4864010,NA
+Department of Architecture and Design,1949,NA,49111,Martino Stierli,NA,2015,NA,Individual,Stierli Martino,Martino,NA,Stierli,NA,Swiss,1974,NA,"Swiss, born 1974",Male,81208454,NA,NA
+Department of Film,1935,NA,NA,John E. Abbott,NA,1935,1945,Individual,Abbott John E.,John,E.,Abbott,NA,NA,NA,NA,NA,Male,NA,NA,NA
+Department of Film,1935,NA,45945,Iris Barry,NA,1946,1951,Individual,Barry Iris,Iris,NA,Barry,NA,American,1895,1969,"American, born England, 1995–1969",Female,54242106,Q11282460,NA
+Department of Film,1935,NA,NA,Richard Griffith,NA,1951,1965,Individual,Griffith Richard,Richard,NA,Griffith,NA,NA,NA,NA,NA,Male,NA,NA,NA
+Department of Film,1935,NA,6078,Willard Van Dyke,NA,1965,1974,Individual,Van Dyke Willard,Willard,NA,Van Dyke,NA,American,1906,1986,"American, 1906–1986",Male,101099086,Q709447,500037065
+Department of Film,1935,NA,NA,Ted (Edward S.) Perry,NA,1975,1978,Individual,Perry Ted,Edward,S.,Perry,NA,American,1937,NA,"American, born 1937",Male,24882704,NA,NA
+Department of Film,1935,NA,26463,Mary Lea Bandy,NA,1979,2005,Individual,Bandy Mary Lea,Mary Lea,NA,Bandy,NA,American,1943,2014,"American, 1943–2014",Female,24878901,NA,NA
+Department of Film,1935,NA,36766,Rajendra Roy,NA,2007,NA,Individual,Roy Rajendra,Rajendra,NA,Roy,NA,American,NA,NA,American,Male,305946109,NA,NA
+Department of Photography,1940,NA,4283,Beaumont Newhall,as Curator,1940,1947,Individual,Newhall Beaumont,Beaumont,NA,Newhall,NA,American,1908,1993,"American, 1908–1993",Male,36929927,Q144164,500037130
+Department of Photography,1940,NA,17961,Nancy Newhall,as Acting Curator,1942,1945,Individual,Newhall Nancy,Nancy,NA,Newhall,NA,American,1908,1974,"American, 1908–1974",Female,46830485,Q6962876,500087029
+Department of Photography,1940,NA,NA,Willard D. Morgan,as Director of the Department and the Photography Center,1943,1945,Individual,Morgan Willard D.,Willard,Detering,Morgan,NA,American,1900,1967,"American, 1900–1967",Male,14929037,Q8003393,NA
+Department of Photography,1940,NA,5623,Edward Steichen,NA,1947,1962,Individual,Steichen Edward,Edward,NA,Steichen,NA,American,1879,1973,"American, born Luxembourg. 1879–1973",Male,73926135,Q313899,500000431
+Department of Photography,1940,NA,8084,John Szarkowski,NA,1962,1991,Individual,Szarkowski John,John,NA,Szarkowski,NA,American,1925,2007,"American, 1925–2007",Male,110959125,Q1381389,500125639
+Department of Photography,1940,NA,18500,Peter Galassi,NA,1991,2011,Individual,Galassi Peter,Peter,NA,Galassi,NA,American,1951,NA,"American, born 1951",Male,71438918,NA,NA
+Department of Photography,1940,NA,43400,Quentin Bajac,NA,2013,NA,Individual,Bajac Quentin,Quentin,NA,Bajac,NA,French,1965,NA,"French, born 1965",Male,309753948,Q3414162,NA
+Department of Dance and Theater Design,1944,1948,NA,George Amberg,NA,1944,1948,Individual,Amberg George,George,NA,Amberg,NA,NA,1901,NA,Born 1901,Male,64918824,NA,NA
+Department of Drawings and Prints,1960,1969,10244,William S. Lieberman,NA,1960,1969,Individual,Lieberman William S.,William,S.,Lieberman,NA,American,1923,2005,"American, 1923–2005",Male,109190713,Q19997602,NA
+Department of Prints and Illustrated Books,1969,2013,18388,Riva Castleman,NA,1969,1995,Individual,Castleman Riva,Riva,NA,Castleman,NA,American,1930,2014,"American, 1930–2014",Female,61627489,Q18030446,NA
+Department of Prints and Illustrated Books,1969,2013,12674,Deborah Wye,NA,1996,2010,Individual,Wye Deborah,Deborah,NA,Wye,NA,American,NA,NA,American,Female,64055880,NA,NA
+Department of Prints and Illustrated Books,1969,2013,34080,Christophe Cherix,NA,2010,2013,Individual,Cherix Christophe,Christophe,NA,Cherix,NA,Swiss,1969,NA,"Swiss, born 1969",Male,64141067,NA,NA
+Department of Drawings,1971,2013,10244,William S. Lieberman,NA,1971,1979,Individual,Lieberman William S.,William,S.,Lieberman,NA,American,1923,2005,"American, 1923–2005",Male,109190713,Q19997602,NA
+Department of Drawings,1971,2013,9295,John Elderfield,NA,1980,1994,Individual,Elderfield John,John,NA,Elderfield,NA,British,1943,NA,"British, born 1943",Male,95695332,Q6231541,500002419
+Department of Drawings,1971,2013,25395,Margit Rowell,NA,1994,1999,Individual,Rowell Margit,Margit,NA,Rowell,NA,NA,1937,NA,Born 1937,Female,64011385,NA,NA
+Department of Drawings,1971,2013,24435,Gary Garrels,NA,2000,2005,Individual,Garrels Gary,Gary,NA,Garrels,NA,American,1957,NA,"American, born 1957",Male,267058078,NA,NA
+Department of Drawings,1971,2013,30627,Cornelia Butler,NA,2006,2013,Individual,Butler Cornelia,Cornelia,NA,Butler,NA,American,1963,NA,"American, born 1963",Female,117218591,Q5171153,NA
+Chief Curator at Large,1993,NA,9295,John Elderfield,NA,1993,2003,Individual,Elderfield John,John,NA,Elderfield,NA,British,1943,NA,"British, born 1943",Male,95695332,Q6231541,500002419
+Chief Curator at Large,1993,NA,13401,Kynaston McShine,NA,2003,2009,Individual,McShine Kynaston L.,Kynaston,NA,McShine,NA,American,1935,NA,"American, born Trinidad 1935",Male,12357173,NA,NA
+Chief Curator at Large,1993,NA,27569,Klaus Biesenbach,NA,2009,NA,Individual,Biesenbach Klaus,Klaus,NA,Biesenbach,NA,German,1967,NA,"German, born 1967",Male,81316572,Q87928,NA
+Department of Media and Performance Art,2006,NA,27569,Klaus Biesenbach,NA,2006,2009,Individual,Biesenbach Klaus,Klaus,NA,Biesenbach,NA,German,1967,NA,"German, born 1967",Male,81316572,Q87928,NA
+Department of Media and Performance Art,2006,NA,38727,Sabine Breitwieser,NA,2010,2013,Individual,Breitwieser Sabine,Sabine,NA,Breitwieser,NA,Austrian,1962,NA,"Austrian, born 1962",Female,20910556,Q1613081,NA
+Department of Media and Performance Art,2006,NA,46188,Stuart Comer,NA,2013,NA,Individual,Comer Stuart,Stuart,NA,Comer,NA,American,NA,NA,American,Male,121118657,Q22277405,NA
+Department of Drawings and Prints,2013,NA,34080,Christophe Cherix,NA,2013,NA,Individual,Cherix Christophe,Christophe,NA,Cherix,NA,Swiss,1969,NA,"Swiss, born 1969",Male,64141067,NA,NA

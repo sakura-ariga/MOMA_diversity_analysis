@@ -1,26 +1,22 @@
 #### Preamble ####
 # Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Data: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
-# License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Author: Sakura Ariga
+# Date: 26 March 2023
+# Contact: sakura.ariga@mail.utoronto.ca 
+# License: MIT [...UPDATE THIS...]
 
 
 #### Workspace setup ####
-library(opendatatoronto)
 library(tidyverse)
-# [...UPDATE THIS...]
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
-
-
+raw_momaexhibit_data <- read_csv("inputs/data/MoMAExhibitions1929to1989.csv")
+raw_momadirectors_data <- read_csv("inputs/data/MoMADirectorsDepartmentHeads.csv")
+raw_momaartists_data <- read_csv("inputs/data/MoMAArtists.csv")
+raw_momaartworks_data <- read_csv("inputs/data/MoMAArtworks.csv")
 
 #### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
-
-         
+write_csv(raw_momaexhibit_data, "inputs/data/raw_momaexhibit_data") 
+write_csv(raw_momadirectors_data, "inputs/data/raw_momadirectors_data") 
+write_csv(raw_momaartists_data, "inputs/data/raw_momaartists_data") 
+write_csv(raw_momaartworks_data, "inputs/data/raw_momaartworks_data") 
