@@ -1,0 +1,124 @@
+---
+title: "How Diverse is the MoMA: While Modern, Not Diverse in Its Artists and Directors"
+subtitle: "An analysis of the MoMA's public datasets on their collections and exhibits"
+author: Sakura Ariga
+thanks: "Code and data are available at: https://github.com/sakura-ariga/MOMA_diversity_analysis.git."
+date: "`r Sys.time()`"
+date-format: "D MMMM YYYY"
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+# Set up workspace 
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(kableExtra)
+```
+
+```{r}
+#| echo: false
+
+# Import cleaned data from the outputs folder, originally imported via the 02-data_cleaning.R file
+cleaned_momaexhibit_data <- read.csv(here::here("outputs/data/cleaned_momaexhibit_data"))
+cleaned_momadirectors_data <- read.csv(here::here("outputs/data/cleaned_momadirectors_data"))
+cleaned_momaartists_data <- read.csv(here::here("outputs/data/cleaned_momaartists_data"))
+cleaned_momaartworks_data <- read.csv(here::here("outputs/data/cleaned_momaartworks_data"))
+```
+
+# Introduction
+
+# Data {#sec-data}
+Investigating artists: 
+```{r}
+#| label: fig-artistnationality
+#| fig-cap: Nationality Distribution of Consituents (Artists, Staff) in MoMA Exhibits
+#| echo: false
+
+# Bar graph showing nationality distribution of constituents MoMA exhibits
+cleaned_momaexhibit_data |>
+  ggplot(mapping = aes(x = Nationality)) +
+  theme(axis.text.x = element_text(angle = 90, hjust=1)) +
+  geom_bar(position = "dodge2")+
+  labs(x = "Nationality", y = "Count of Constituents in MoMA Exhibits") 
+```
+
+```{r}
+#| label: fig-artistgender
+#| fig-cap: Gender Distribution of Consituents (Artists, Staff) in MoMA Exhibits
+#| echo: false
+
+
+
+# Bar graph showing gender distribution of constituents MoMA exhibits
+cleaned_momaexhibit_data |> count(Gender) |>
+  ggplot(mapping = aes(x = Gender, y = n)) +
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 90, hjust=1)) +
+  labs(x = "Gender", y = "Count of Constituents in MoMA Exhibits") 
+```
+
+Investigating directors and department heads:
+```{r}
+#| label: fig-staffnationality
+#| fig-cap: Nationality Distribution of Directors and Department Heads in MoMA
+#| echo: false
+
+# Bar graph showing nationality distribution of MoMA directors and department heads 
+cleaned_momadirectors_data |>
+  ggplot(mapping = aes(x = Nationality)) +
+  theme(axis.text.x = element_text(angle = 90, hjust=1)) +
+  geom_bar(position = "dodge2")+
+  labs(x = "Nationality", y = "Count of MoMA Directors and Department Heads") 
+```
+
+```{r}
+#| label: fig-staffgender
+#| fig-cap: Gender Distribution of Directors and Department Heads in MoMA
+#| echo: false
+
+# Bar graph showing gender distribution of MoMA directors and department heads 
+cleaned_momadirectors_data |>
+  ggplot(mapping = aes(x = Gender)) +
+  theme(axis.text.x = element_text(angle = 90, hjust=1)) +
+  geom_bar(position = "dodge2")+
+  labs(x = "Gender", y = "Count of MoMA Directors and Department Heads")
+```
+
+# Model
+
+```{r}
+#| label: fig-model
+#| fig-cap: Linear regression model of 
+#| echo: false
+
+numeric_momadirectors_data <- 
+  cleaned_momadirectors_data |>
+  mutate(Gender = case_when(
+    Gender == "Female" ~ 1,
+    Gender == "Male" ~ 2,
+  ))
+
+gender_model <-
+  lm(
+    formula = Gender ~ DepartmentBeginYear,
+    data = numeric_momadirectors_data
+  )
+
+summary(gender_model)
+```
+
+# Results
+
+# Discussion
+## First discussion point {#sec-first-point}
+
+# References

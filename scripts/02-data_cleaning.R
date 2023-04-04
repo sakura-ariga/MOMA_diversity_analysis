@@ -53,6 +53,11 @@ cleaned_momaartists_data <-
   mutate(, 
          Age = EndDate - BeginDate)
 
+# Edit gender variable to remove duplicates and null from raw_momaexhibit_data
+test <- 
+  cleaned_momaexhibit_data |>
+  filter(Gender == "Female" | Gender == "Male"E)
+
 #### Save data ####
 write_csv(cleaned_momaexhibit_data, "outputs/data/cleaned_momaexhibit_data")
 write_csv(cleaned_momadirectors_data, "outputs/data/cleaned_momadirectors_data")
