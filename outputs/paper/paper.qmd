@@ -5,7 +5,7 @@ author: Sakura Ariga
 thanks: "Code and data are available at: https://github.com/sakura-ariga/MOMA_diversity_analysis.git."
 date: "`r Sys.time()`"
 date-format: "D MMMM YYYY"
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "The MoMA's public GitHub data on their exhibits and collections was analyzed to determine how diverse the artists and directors at the MoMA are. It was found that the MoMA is comprised largely of white men, but that this relationship has changed with time. This finding gives quantitative proof of the need for more representation within not jus the MoMA, but all American museums as a whole."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -35,6 +35,13 @@ cleaned_momaartworks_data <- read.csv(here::here("outputs/data/cleaned_momaartwo
 ```
 
 # Introduction
+Diversity in museums is a topic that is increasingly being discussed and raised as a problem in museums. While the main goal of museums is to serve as cultural institutions and a place of learning, oftentimes the objects on display or the decision-making staff who work behind the scenes do not meet this mission of inclusion. 
+
+This paper will investigate the level of diversity in one such museum: the Museum of Modern Art (also known as MoMA). Founded in 1929, the MoMA, as its name suggests, houses a collection of contemporary art pieces. It was originally created to go against traditional art museums by housing only modern art, and has since grown to become an influential cultural institution. Using data made publicly available on the MoMA's GitHub account, this paper aims to evaluate how diverse the artists of the artworks on display are, as well as how diverse the directors and department heads who chose to display these artworks are, in terms of gender and nationality. Thus, the estimand is: how much of the artists and directors in the MoMA's history are/were not white men. 
+
+It was found that the MoMA's artists and directors were predominantly men. A simple linear regression model shows that time affects this proportion of men. 
+
+The paper's structure begins by explaining the data used, followed by a linear model, a discussion of the relationship between variables in the data and in the model, and a discussion on key findings. 
 
 # Data {#sec-data}
 Investigating artists: 

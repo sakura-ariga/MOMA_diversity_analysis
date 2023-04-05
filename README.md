@@ -2,9 +2,9 @@
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
+The project uses the MoMA's public GitHub data on their exhibits and collections to analyze how diverse the artists and directors at the MoMA are. 
 
-To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
+This is a work in progress. Expected date of completion is: April 19, 2023.
 
 ## File Structure
 
