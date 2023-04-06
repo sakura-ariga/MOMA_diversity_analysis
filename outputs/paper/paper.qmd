@@ -57,7 +57,7 @@ cleaned_momaexhibit_data |>
   geom_bar(position = "dodge2")+
   labs(x = "Nationality", y = "Count of Constituents in MoMA Exhibits") 
 ```
-
+\newpage
 ```{r}
 #| label: fig-artistgender
 #| fig-cap: Gender Distribution of Consituents (Artists, Staff) in MoMA Exhibits
@@ -72,7 +72,7 @@ cleaned_momaexhibit_data |> count(Gender) |>
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
   labs(x = "Gender", y = "Count of Constituents in MoMA Exhibits") 
 ```
-
+\newpage
 Investigating directors and department heads:
 ```{r}
 #| label: fig-staffnationality
@@ -86,7 +86,7 @@ cleaned_momadirectors_data |>
   geom_bar(position = "dodge2")+
   labs(x = "Nationality", y = "Count of MoMA Directors and Department Heads") 
 ```
-
+\newpage
 ```{r}
 #| label: fig-staffgender
 #| fig-cap: Gender Distribution of Directors and Department Heads in MoMA
@@ -99,7 +99,7 @@ cleaned_momadirectors_data |>
   geom_bar(position = "dodge2")+
   labs(x = "Gender", y = "Count of MoMA Directors and Department Heads")
 ```
-
+\newpage
 # Model
 
 ```{r}
@@ -126,6 +126,9 @@ summary(gender_model)
 # Results
 
 # Discussion
-## First discussion point {#sec-first-point}
+## Gender distribition {#sec-first-point}
+## Nationality distribition {#sec-second-point}
+## Analyzing the model: is time a factor? {#sec-third-point}
+## Comparing artists vs directors {#sec-fourth-point}
 
 # References
