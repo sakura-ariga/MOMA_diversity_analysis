@@ -18,7 +18,6 @@ bibliography: references.bib
 
 # Set up workspace 
 library(tidyverse)
-library(dplyr)
 library(tidyr)
 library(knitr)
 library(kableExtra)
@@ -32,8 +31,6 @@ library(modelsummary)
 # Import cleaned data from the outputs folder, originally imported via the 02-data_cleaning.R file
 cleaned_momaexhibit_data <- read.csv(here::here("outputs/data/cleaned_momaexhibit_data"))
 cleaned_momadirectors_data <- read.csv(here::here("outputs/data/cleaned_momadirectors_data"))
-cleaned_momaartists_data <- read.csv(here::here("outputs/data/cleaned_momaartists_data"))
-cleaned_momaartworks_data <- read.csv(here::here("outputs/data/cleaned_momaartworks_data"))
 ```
 
 # Introduction
@@ -47,35 +44,49 @@ It was found that the MoMA's artists and directors were predominantly men. A sim
 The paper's structure begins by explaining the data used, followed by a linear model, a discussion of the relationship between variables in the data and in the model, and a discussion on key findings.
 
 # Data {#sec-data}
+### Data Source
+In this report, the 25795 observations from the ____ and 65 observations from the _______ are used to investigate the level of diversity among MoMA decision-making directors and displayed artists. This data was obtained from the MoMA's publicly available GitHub, which has several public repositories containing data regarding the museum [@MoMAGithub]. For this analysis, the MoMA GitHub repositories of ____ [@____] and ____ [@__] were used. 
+
+This report was created using the R statistical programming language [@R]. For the results and analysis of this report, all figures were created using the tidyverse package [@tidyverse]. Additionally, the tables were created using the packages knitr [@knitr] and kableExtra [@kableExtra], and the graphs were created using the packages tidyr [@tidyr] and ggplot2 [@ggplot2].
+
+### Variables of Interest
+
+Our report selects 7 variables for analysis. We focus on 6 particular factors that we predicted affects the amount of Internet use: age, sex, race, number of children, marital status, and happiness. In this paper, we investigate the influence of these various factors on the total number of hours of weekly Internet usage. The packages tidyverse [@tidyverse], haven [@haven], and reshape2 [@reshape2] were used to clean the dataset by grouping or converting the questionnaire responses into categorical or textual answers.
+
+The variables, Number of Children and Weekly Internet Hours, are recorded as a numerical value. Weekly Internet Hours has a maximum value of 168, as there are only 168 hours in a week. Age is also recorded as a numerical value, but is cleaned to represent ages in groups of ten years. The other variables, Sex, Race, Marital Status, and Happiness Level, are all recorded as a textual option for respondents to choose from.
+
 
 Investigating artists:
 
 ```{r}
 #| label: fig-artistnationality
-#| fig-cap: Nationality Distribution of Consituents (Artists, Staff) in MoMA Exhibits
+#| fig-cap: Nationality Distribution of Artists in MoMA Exhibits
 #| echo: false
 
-# Bar graph showing nationality distribution of constituents MoMA exhibits
+# Bar graph showing nationality distribution of Artists in MoMA exhibits
 cleaned_momaexhibit_data |>
+  filter(ExhibitionRole == "Artist") |>
   ggplot(mapping = aes(x = Nationality)) +
-  theme(axis.text.x = element_text(angle = 90, hjust=1)) +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
   geom_bar(position = "dodge2")+
-  labs(x = "Nationality", y = "Count of Constituents in MoMA Exhibits") 
+  labs(x = "Nationality", y = "Count of Artists in MoMA Exhibits") 
 ```
 
 \newpage
 
 ```{r}
 #| label: fig-artistgender
-#| fig-cap: Gender Distribution of Consituents (Artists, Staff) in MoMA Exhibits
+#| fig-cap: Gender Distribution of Artists in MoMA Exhibits
 #| echo: false
 
-# Bar graph showing gender distribution of constituents MoMA exhibits
-cleaned_momaexhibit_data |> count(Gender) |>
+# Bar graph showing gender distribution of Artists in MoMA exhibits
+cleaned_momaexhibit_data |> 
+  filter(ExhibitionRole == "Artist") |>
+  count(Gender) |>
   ggplot(mapping = aes(x = Gender, y = n)) +
   geom_col() + 
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
-  labs(x = "Gender", y = "Count of Constituents in MoMA Exhibits") 
+  labs(x = "Gender", y = "Count of Artists in MoMA Exhibits") 
 ```
 
 \newpage
@@ -113,25 +124,52 @@ cleaned_momadirectors_data |>
 \newpage
 
 # Model
-The goal of our modelling strategy is twofold. Firstly,...
+From the exploratory data analysis above, it is clear that both the number of female MoMA directors and the number of female artists displayed in the MoMA is much less than the number of male counterparts in these positions. This gender relationship is worth further investigation using linear models. 
 
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+The goal of this modelling strategy is threefold. Firstly, the relationship between the percentage of female directors at the MoMA and years will be investigated to determine whether the gender distribution of those who have the highest decision-making power at the MoMA has improved over time. Secondly, another model will look at the relationship between the percentage of female artists in exhibits at the MoMA and years to determine whether the gender distribution of the artists displayed in MoMA exhibits has improved over time. Finally, the third model will investigate the effect that female director percentage in the MoMA has on female artist percentage in MoMA exhibits to determine whether the gender distribution of top MoMA decision-makers has an effect on the gender distribution of artists selected for exhibits. 
 
-## Model set-up
+Here we briefly describe the three linear regression models used to investigate this relationship between gender and time. Background details and diagnostics are included in [Appendix -@sec-model-details].
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+## Model Set-Up
+The first linear regression model regarding the effect of time on the percentage of female MoMA directors is as follows:
+$$\hat{y} = \beta_0 + \beta_1x_{year}$$
 
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
+The output of this linear regression model gives the percentage of female MoMA directors. Thus, the response in the model is the percentage of female MoMA directors based on the year explanatory variable. A linear regression model was used because both the response variable and the explanatory variable are quantitative. 
 
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+This model focuses on the following two aspects of MoMA directors:
 
+* Percentage of female MoMA directors, the response variable, is used as a quantitative measure of gender diversity that is between 0 and 100
+
+* Year, the explanatory variable, is a numeric variable between 1929 (the founding year of the MoMA) and 2023 (the year that this report was published) indicating a specific year in the history of the MoMA
+
+
+The second linear regression model regarding the effect of time on the percentage of female MoMA artists in the exhibits is similar to the first and is as follows:
+$$\hat{y} = \beta_0 + \beta_1x_{year}$$
+
+The output of this linear regression model gives the percentage of female MoMA artists whose works have been displayed in MoMA exhibits over time. Thus, the response in the model is the percentage of female MoMA artists based on the year explanatory variable. A linear regression model was used because both the response variable and the explanatory variable are quantitative. 
+
+This model focuses on the following two aspects of MoMA artists:
+
+* Percentage of female MoMA artists, the response variable, is used as a quantitative measure of gender diversity that is between 0 and 100
+
+* Year, the explanatory variable, is a numeric variable between 1929 (the founding year of the MoMA) and 1990 (the year that the MoMA public GitHub has data until) indicating a specific year in the history of the MoMA
+
+
+The third and final linear regression model differs slightly from the previous two and is as follows:
+$$\hat{y} = \beta_0 + \beta_1x_{femaledirectorpercentage} + \beta_2x_{year}$$
+
+The output of this linear regression model gives the percentage of female MoMA artists whose works have been displayed in MoMA exhibits over time. Thus, the response in the model is the percentage of female MoMA artists based on the percentage of female MoMA directors and  year explanatory variables. A linear regression model was used because both the response variable and the explanatory variables are quantitative. 
+
+This model focuses on the following three aspects of MoMA artists:
+
+* Percentage of female MoMA artists, the response variable, is used as a quantitative measure of gender diversity that is between 0 and 100
+
+* Percentage of female MoMA directors, an explanatory variable, is a numeric variable between 0 and 100 indicating the gender distribution of the directors who had the decision-making power to choose the artists to be displayed
+
+* Year, an explanatory variable, is a numeric variable between 1929 (the founding year of the MoMA) and 2023 (the year that this report was published) indicating a specific year in the history of the MoMA
+
+
+All of the models are run in R [@citeR] using the `stats` package of @stats.
 
 ### Model justification
 
@@ -154,10 +192,11 @@ Our results are summarized in @tbl-modelresults.
 model_directors_percentage_female <-
   readRDS(file = here::here("outputs/models/model_directors_percentage_female.rds"))
 ```
+
 ```{r}
 #| echo: false
 #| eval: true
-#| label: tbl-modelresults
+#| label: tbl-modelresults1
 #| tbl-cap: "Explanatory model of percentage of female MoMA directors based on year"
 #| warning: false
 
@@ -180,10 +219,11 @@ modelsummary::modelsummary(
 model_exhibits_percentage_female <-
   readRDS(file = here::here("outputs/models/model_exhibits_percentage_female.rds"))
 ```
+
 ```{r}
 #| echo: false
 #| eval: true
-#| label: tbl-modelresults
+#| label: tbl-modelresults2
 #| tbl-cap: "Explanatory model of percentage of female MoMA artists based on exhibit year"
 #| warning: false
 
@@ -206,10 +246,11 @@ modelsummary::modelsummary(
 model_exhibits_on_directors <-
   readRDS(file = here::here("outputs/models/model_exhibits_on_directors.rds"))
 ```
+
 ```{r}
 #| echo: false
 #| eval: true
-#| label: tbl-modelresults
+#| label: tbl-modelresults3
 #| tbl-cap: "Explanatory model of percentage of female MoMA artists based on exhibit year and percentage of female MoMA directors "
 #| warning: false
 
@@ -232,14 +273,15 @@ modelsummary::modelsummary(
 ## Comparing artists vs directors {#sec-fourth-point}
 
 ## Weaknesses and next steps
-- a LOT of NAs in the exhibit dataset, especially regarding artist gender, so results are skewed bc of that 
-- binary understanding of gender that is exclusive 
+
+-   a LOT of NAs in the exhibit dataset, especially regarding artist gender, so results are skewed bc of that
+-   binary understanding of gender that is exclusive
 
 \newpage
 
 \appendix
 
-# Appendix {-}
+# Appendix {.unnumbered}
 
 # Additional data details
 
@@ -249,7 +291,7 @@ modelsummary::modelsummary(
 
 In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
 
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows...
 
 ```{r}
 #| eval: true

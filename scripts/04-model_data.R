@@ -10,6 +10,7 @@
 library(tidyverse)
 library(rstanarm)
 
+
 #### Model 1 ####
 # Create new dataset for model 
 for (i in 1929:2023) {
@@ -70,6 +71,7 @@ model_exhibits_percentage_female <-
 
 summary(model_exhibits_percentage_female) 
 
+
 #### Model 3 ####
 merged_gender_percentage <- 
   left_join(exhibits_gender_percentage, directors_gender_percentage, by = "Year")
@@ -88,6 +90,7 @@ model_exhibits_on_directors <-
   )
 
 summary(model_exhibits_on_directors)
+
 
 #### Save models ####
 saveRDS(
