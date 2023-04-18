@@ -10,8 +10,8 @@
 library(tidyverse)
 library(rstanarm)
 
-#### Potential model 2.1 ####
-# Create dataset for model 
+#### Model 1 ####
+# Create new dataset for model 
 for (i in 1929:2023) {
   temp <- 
     cleaned_momadirectors_data |> 
@@ -45,7 +45,7 @@ model_directors_percentage_female <-
 summary(model_directors_percentage_female) 
 
 
-#### Potential model 2.2 ####
+#### Model 2 ####
 # Create dataset for model 
 exhibits_gender_percentage <- 
     cleaned_momaexhibit_data |> 
@@ -70,9 +70,16 @@ model_exhibits_percentage_female <-
 
 summary(model_exhibits_percentage_female) 
 
-#### Potential model 2.3 ####
+#### Model 3 ####
 merged_gender_percentage <- 
   left_join(exhibits_gender_percentage, directors_gender_percentage, by = "Year")
+
+# merged_gender_percentage <- 
+#   merged_gender_percentage |> 
+#   rename = ("PercentageMaleArtists" = "PercentageMale.x")
+#             "PercentageFemaleArtists" = "PercentageFemale.x",
+#             "PercentageMaleDirectors" = "PercentageMale.y",
+#             "PercentageFemaleDirectors" = "PercentageFemale.y")
 
 model_exhibits_on_directors <- 
   lm(
@@ -89,11 +96,11 @@ saveRDS(
 )
 
 saveRDS(
-  exhibits_gender_percentage, 
-  file = "outputs/models/exhibits_gender_percentage.rds"
+  model_exhibits_percentage_female, 
+  file = "outputs/models/model_exhibits_percentage_female.rds"
 )
 
 saveRDS(
-  merged_gender_percentage, 
-  file = "outputs/models/merged_gender_percentage.rds"
+  model_exhibits_on_directors, 
+  file = "outputs/models/model_exhibits_on_directors.rds"
 )

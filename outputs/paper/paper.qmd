@@ -70,8 +70,6 @@ cleaned_momaexhibit_data |>
 #| fig-cap: Gender Distribution of Consituents (Artists, Staff) in MoMA Exhibits
 #| echo: false
 
-
-
 # Bar graph showing gender distribution of constituents MoMA exhibits
 cleaned_momaexhibit_data |> count(Gender) |>
   ggplot(mapping = aes(x = Gender, y = n)) +
@@ -115,28 +113,6 @@ cleaned_momadirectors_data |>
 \newpage
 
 # Model
-
-```{r}
-#| label: fig-model
-#| fig-cap: Linear regression model of 
-#| echo: false
-
-numeric_momadirectors_data <- 
-  cleaned_momadirectors_data |>
-  mutate(Gender = case_when(
-    Gender == "Female" ~ 1,
-    Gender == "Male" ~ 2,
-  ))
-
-potential_gender_model <-
-  lm(
-    formula = Gender ~ DepartmentBeginYear,
-    data = numeric_momadirectors_data
-  )
-
-summary(potential_gender_model)
-```
-
 The goal of our modelling strategy is twofold. Firstly,...
 
 Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
@@ -168,25 +144,79 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 Our results are summarized in @tbl-modelresults.
 
 ```{r}
+#| label: fig-model1
+#| fig-cap: Linear regression model of the effect of time on the percentage of female MoMA directors
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-gender_model <-
-  readRDS(file = here::here("outputs/models/gender_model.rds"))
-```
 
+model_directors_percentage_female <-
+  readRDS(file = here::here("outputs/models/model_directors_percentage_female.rds"))
+```
 ```{r}
 #| echo: false
 #| eval: true
 #| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| tbl-cap: "Explanatory model of percentage of female MoMA directors based on year"
 #| warning: false
+
 modelsummary::modelsummary(
   list(
-    "First model" = gender_model
+    "First model" = model_directors_percentage_female
   ),
-  statistic = "mad",
+  fmt = 2
+)
+```
+
+```{r}
+#| label: fig-model2
+#| fig-cap: Linear regression model of the effect of exhibit year on the percentage of female MoMA artists
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+
+model_exhibits_percentage_female <-
+  readRDS(file = here::here("outputs/models/model_exhibits_percentage_female.rds"))
+```
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-modelresults
+#| tbl-cap: "Explanatory model of percentage of female MoMA artists based on exhibit year"
+#| warning: false
+
+modelsummary::modelsummary(
+  list(
+    "Second model" = model_exhibits_percentage_female
+  ),
+  fmt = 2
+)
+```
+
+```{r}
+#| label: fig-model3
+#| fig-cap: Linear regression model of the effect of time and percentage of female MoMA directors on the percentage of female MoMA artists selected for exhibits
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+
+model_exhibits_on_directors <-
+  readRDS(file = here::here("outputs/models/model_exhibits_on_directors.rds"))
+```
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-modelresults
+#| tbl-cap: "Explanatory model of percentage of female MoMA artists based on exhibit year and percentage of female MoMA directors "
+#| warning: false
+
+modelsummary::modelsummary(
+  list(
+    "Third model" = model_exhibits_on_directors
+  ),
   fmt = 2
 )
 ```
@@ -202,6 +232,8 @@ modelsummary::modelsummary(
 ## Comparing artists vs directors {#sec-fourth-point}
 
 ## Weaknesses and next steps
+- a LOT of NAs in the exhibit dataset, especially regarding artist gender, so results are skewed bc of that 
+- binary understanding of gender that is exclusive 
 
 \newpage
 
