@@ -22,6 +22,8 @@ library(dplyr)
 library(tidyr)
 library(knitr)
 library(kableExtra)
+library(rstanarm)
+library(modelsummary)
 ```
 
 ```{r}
@@ -35,16 +37,19 @@ cleaned_momaartworks_data <- read.csv(here::here("outputs/data/cleaned_momaartwo
 ```
 
 # Introduction
-Diversity in museums is a topic that is increasingly being discussed and raised as a problem in museums. While the main goal of museums is to serve as cultural institutions and a place of learning, oftentimes the objects on display or the decision-making staff who work behind the scenes do not meet this mission of inclusion. 
 
-This paper will investigate the level of diversity in one such museum: the Museum of Modern Art (also known as MoMA). Founded in 1929, the MoMA, as its name suggests, houses a collection of contemporary art pieces. It was originally created to go against traditional art museums by housing only modern art, and has since grown to become an influential cultural institution. Using data made publicly available on the MoMA's GitHub account, this paper aims to evaluate how diverse the artists of the artworks on display are, as well as how diverse the directors and department heads who chose to display these artworks are, in terms of gender and nationality. Thus, the estimand is: how much of the artists and directors in the MoMA's history are/were not white men. 
+Diversity in museums is a topic that is increasingly being discussed and raised as a problem in museums. While the main goal of museums is to serve as cultural institutions and a place of learning, oftentimes the objects on display or the decision-making staff who work behind the scenes do not meet this mission of inclusion.
 
-It was found that the MoMA's artists and directors were predominantly men. A simple linear regression model shows that time affects this proportion of men. 
+This paper will investigate the level of diversity in one such museum: the Museum of Modern Art (also known as MoMA). Founded in 1929, the MoMA, as its name suggests, houses a collection of contemporary art pieces. It was originally created to go against traditional art museums by housing only modern art, and has since grown to become an influential cultural institution. Using data made publicly available on the MoMA's GitHub account, this paper aims to evaluate how diverse the artists of the artworks on display are, as well as how diverse the directors and department heads who chose to display these artworks are, in terms of gender and nationality. Thus, the estimand is: how much of the artists and directors in the MoMA's history are/were not white men.
 
-The paper's structure begins by explaining the data used, followed by a linear model, a discussion of the relationship between variables in the data and in the model, and a discussion on key findings. 
+It was found that the MoMA's artists and directors were predominantly men. A simple linear regression model shows that time affects this proportion of men.
+
+The paper's structure begins by explaining the data used, followed by a linear model, a discussion of the relationship between variables in the data and in the model, and a discussion on key findings.
 
 # Data {#sec-data}
-Investigating artists: 
+
+Investigating artists:
+
 ```{r}
 #| label: fig-artistnationality
 #| fig-cap: Nationality Distribution of Consituents (Artists, Staff) in MoMA Exhibits
@@ -57,7 +62,9 @@ cleaned_momaexhibit_data |>
   geom_bar(position = "dodge2")+
   labs(x = "Nationality", y = "Count of Constituents in MoMA Exhibits") 
 ```
+
 \newpage
+
 ```{r}
 #| label: fig-artistgender
 #| fig-cap: Gender Distribution of Consituents (Artists, Staff) in MoMA Exhibits
@@ -72,8 +79,11 @@ cleaned_momaexhibit_data |> count(Gender) |>
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
   labs(x = "Gender", y = "Count of Constituents in MoMA Exhibits") 
 ```
+
 \newpage
+
 Investigating directors and department heads:
+
 ```{r}
 #| label: fig-staffnationality
 #| fig-cap: Nationality Distribution of Directors and Department Heads in MoMA
@@ -86,7 +96,9 @@ cleaned_momadirectors_data |>
   geom_bar(position = "dodge2")+
   labs(x = "Nationality", y = "Count of MoMA Directors and Department Heads") 
 ```
+
 \newpage
+
 ```{r}
 #| label: fig-staffgender
 #| fig-cap: Gender Distribution of Directors and Department Heads in MoMA
@@ -99,7 +111,9 @@ cleaned_momadirectors_data |>
   geom_bar(position = "dodge2")+
   labs(x = "Gender", y = "Count of MoMA Directors and Department Heads")
 ```
+
 \newpage
+
 # Model
 
 ```{r}
@@ -114,21 +128,135 @@ numeric_momadirectors_data <-
     Gender == "Male" ~ 2,
   ))
 
-gender_model <-
+potential_gender_model <-
   lm(
     formula = Gender ~ DepartmentBeginYear,
     data = numeric_momadirectors_data
   )
 
-summary(gender_model)
+summary(potential_gender_model)
 ```
+
+The goal of our modelling strategy is twofold. Firstly,...
+
+Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+
+## Model set-up
+
+Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+
+\begin{align} 
+y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
+\mu_i &= \alpha + \beta_i + \gamma_i\\
+\alpha &\sim \mbox{Normal}(0, 2.5) \\
+\beta &\sim \mbox{Normal}(0, 2.5) \\
+\gamma &\sim \mbox{Normal}(0, 2.5) \\
+\sigma &\sim \mbox{Exponential}(1)
+\end{align}
+
+We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+
+
+### Model justification
+
+We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+
+We can use maths by including latex between dollar signs, for instance $\theta$.
 
 # Results
 
+Our results are summarized in @tbl-modelresults.
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+gender_model <-
+  readRDS(file = here::here("outputs/models/gender_model.rds"))
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-modelresults
+#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| warning: false
+modelsummary::modelsummary(
+  list(
+    "First model" = gender_model
+  ),
+  statistic = "mad",
+  fmt = 2
+)
+```
+
 # Discussion
+
 ## Gender distribition {#sec-first-point}
+
 ## Nationality distribition {#sec-second-point}
+
 ## Analyzing the model: is time a factor? {#sec-third-point}
+
 ## Comparing artists vs directors {#sec-fourth-point}
+
+## Weaknesses and next steps
+
+\newpage
+
+\appendix
+
+# Appendix {-}
+
+# Additional data details
+
+# Model details {#sec-model-details}
+
+## Posterior predictive check
+
+In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
+
+In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-ppcheckandposteriorvsprior
+#| layout-ncol: 2
+#| fig-cap: "Examining how the model fits, and is affected by, the data"
+#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
+#pp_check(first_model) +
+#  theme_classic() +
+#  theme(legend.position = "bottom")
+#posterior_vs_prior(first_model) +
+#  theme_minimal() +
+#  scale_color_brewer(palette = "Set1") +
+#  theme(legend.position = "bottom") +
+#  coord_flip()
+```
+
+## Diagnostics
+
+@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
+
+@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| label: fig-stanareyouokay
+#| fig-cap: "Checking the convergence of the MCMC algorithm"
+#| fig-subcap: ["Trace plot", "Rhat plot"]
+#| layout-ncol: 2
+#plot(first_model, "trace")
+#plot(first_model, "rhat")
+```
+
+\newpage
 
 # References

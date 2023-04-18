@@ -1,9 +1,9 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
+# Purpose: Downloads and saves the data from the MoMA's public GitHub
 # Author: Sakura Ariga
 # Date: 26 March 2023
 # Contact: sakura.ariga@mail.utoronto.ca 
-# License: MIT [...UPDATE THIS...]
+# License: MIT
 
 
 #### Workspace setup ####
