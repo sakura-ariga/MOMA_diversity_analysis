@@ -46,6 +46,15 @@ cleaned_momaexhibit_data <-
 cleaned_momaexhibit_data <- 
   cleaned_momaexhibit_data |> 
   select(ExhibitionTitle, DisplayName, Nationality, Gender, StartYear, Year)
+
+# Remove NAs from both datasets 
+cleaned_momaexhibit_data <- 
+  cleaned_momaexhibit_data |> 
+  drop_na()
+
+cleaned_momadirectors_data <- 
+  cleaned_momadirectors_data |> 
+  drop_na()
          
 
 # Edit gender variable to remove duplicates and null from Exhibit

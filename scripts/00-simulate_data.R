@@ -11,6 +11,7 @@ library(tidyverse)
 
 
 #### Simulate data ####
+# Create dataset with: year, percentage of female artists, percentage of non-white artists, and the position of the individual in the MoMA exhibit
 set.seed(853)
 
 artists_simulated_data <-
@@ -20,17 +21,17 @@ artists_simulated_data <-
       n = 95, 
       min = 0, 
       max = 100),
-    race = sample(
-      x = c(1:7),
-      size = 95,
-      replace = TRUE),
+    percentage_notwhite = runif(
+      n = 95, 
+      min = 0, 
+      max = 100),
     position = sample(
       x = c("Artist"),
       size = 95,
       replace = TRUE)
  )
-head(artists_simulated_data)
 
+# Create dataset with: year, percentage of female directors or department head, percentage of non-white directors or department head, and the position of the individual in MoMA
 directors_simulated_data <-
   tibble(
     year = c(1929:2023),
@@ -38,16 +39,15 @@ directors_simulated_data <-
       n = 95, 
       min = 0, 
       max = 100),
-    race = sample(
-      x = c(1:7),
-      size = 95,
-      replace = TRUE),
+    percentage_notwhite = runif(
+      n = 95, 
+      min = 0, 
+      max = 100),
     position = sample(
       x = c("Director or Department Head"),
       size = 95,
       replace = TRUE)
   )
-head(directors_simulated_data)
 
 
 #### Save simulated data ####
