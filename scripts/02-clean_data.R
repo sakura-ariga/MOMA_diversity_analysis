@@ -18,8 +18,9 @@ raw_momadirectors_data <- read_csv("inputs/data/MoMADirectorsDepartmentHeads.csv
 # Remove unneeded info in Exhibit data
 cleaned_momaexhibit_data <- 
   raw_momaexhibit_data |> 
-  select(ExhibitionTitle, ExhibitionBeginDate, ExhibitionEndDate, ExhibitionRole, 
-         DisplayName, Nationality, Gender)
+  filter(ExhibitionRole == "Artist") |> 
+  select(ExhibitionTitle, ExhibitionBeginDate, ExhibitionEndDate, DisplayName, 
+         Nationality, Gender)
 # Remove unneeded info in Directors data
 cleaned_momadirectors_data <- 
   raw_momadirectors_data |> 
@@ -44,7 +45,7 @@ cleaned_momaexhibit_data <-
 # Remove unneeded info in Exhibit data
 cleaned_momaexhibit_data <- 
   cleaned_momaexhibit_data |> 
-  select(ExhibitionTitle, ExhibitionRole, DisplayName, Nationality, Gender, StartYear, Year)
+  select(ExhibitionTitle, DisplayName, Nationality, Gender, StartYear, Year)
          
 
 # Edit gender variable to remove duplicates and null from Exhibit
