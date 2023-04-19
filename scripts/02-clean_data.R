@@ -11,15 +11,15 @@ library(tidyverse)
 library(stringr)
 
 #### Download data ####
-raw_momaexhibit_data <- read_csv("inputs/data/MoMAExhibitions1929to1989.csv")
-raw_momadirectors_data <- read_csv("inputs/data/MoMADirectorsDepartmentHeads.csv")
+raw_momaexhibit_data <- read_csv("inputs/data/raw_momaexhibit_data")
+raw_momadirectors_data <- read_csv("inputs/data/raw_momadirectors_data")
 
 #### Clean data ####
 # Remove unneeded info in Exhibit data
 cleaned_momaexhibit_data <- 
   raw_momaexhibit_data |> 
   filter(ExhibitionRole == "Artist") |> 
-  select(ExhibitionTitle, ExhibitionBeginDate, ExhibitionEndDate, DisplayName, 
+  select(ExhibitionTitle, ExhibitionRole, ExhibitionBeginDate, ExhibitionEndDate, DisplayName, 
          Nationality, Gender)
 # Remove unneeded info in Directors data
 cleaned_momadirectors_data <- 
