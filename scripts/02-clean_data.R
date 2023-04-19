@@ -19,22 +19,12 @@ raw_momadirectors_data <- read_csv("inputs/data/MoMADirectorsDepartmentHeads.csv
 cleaned_momaexhibit_data <- 
   raw_momaexhibit_data |> 
   select(ExhibitionTitle, ExhibitionBeginDate, ExhibitionEndDate, ExhibitionRole, 
-         ConstituentType, DisplayName, 
-         Institution, Nationality, ConstituentBeginDate, ConstituentEndDate,
-         Gender)
+         DisplayName, Nationality, Gender)
 # Remove unneeded info in Directors data
 cleaned_momadirectors_data <- 
   raw_momadirectors_data |> 
-  select(DepartmentFullName, DepartmentBeginYear, DepartmentEndYear, DisplayName, PositionNote, 
-         PositionBeginYear, PositionEndYear, Nationality, 
-         ConstituentBeginDate, ConstituentEndDate, Gender)
-
-# Create age variables in Directors data by subtracting start dates from end dates 
-cleaned_momadirectors_data <-
-  cleaned_momadirectors_data |>
-  mutate(ConstituentAge = ConstituentEndDate - ConstituentBeginDate,
-         PositionAge = PositionEndYear - PositionBeginYear, 
-         DepartmentAge = DepartmentEndYear - DepartmentBeginYear)
+  select(DepartmentFullName, DisplayName, PositionBeginYear, PositionEndYear, 
+         Nationality, Gender)
 
 # Remove NAs from PositionEndYear in Directors data
 cleaned_momadirectors_data$PositionEndYear[is.na(cleaned_momadirectors_data$PositionEndYear)] <- 2023
@@ -46,13 +36,15 @@ cleaned_momaexhibit_data <-
          Year = str_sub(ExhibitionEndDate, -4)
   )
 
-# Remove NAs from Year in Exhibit data
-cleaned_momaexhibit_data$Year[is.na(cleaned_momaexhibit_data$Year)] <- 2023
-
 # Convert Year from string to numeric in Exhibit
 cleaned_momaexhibit_data <-
   cleaned_momaexhibit_data |>
   mutate(Year = as.numeric(Year))
+
+# Remove unneeded info in Exhibit data
+cleaned_momaexhibit_data <- 
+  cleaned_momaexhibit_data |> 
+  select(ExhibitionTitle, ExhibitionRole, DisplayName, Nationality, Gender, StartYear, Year)
          
 
 # Edit gender variable to remove duplicates and null from Exhibit
