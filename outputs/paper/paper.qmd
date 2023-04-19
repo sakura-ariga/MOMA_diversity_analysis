@@ -1,12 +1,13 @@
 ---
-title: "How Diverse is the MoMA: While Modern, Not Diverse in Its Artists and Directors"
-subtitle: "An analysis of the MoMA's public datasets on their collections and exhibits"
+title: "Investigating the Gender and Nationality Distributions of the MoMA: While Modern, Not Diverse in Its Artists and Decision-making Staff"
+subtitle: "An analysis of the MoMA's public datasets"
 author: Sakura Ariga
 thanks: "Code and data are available at: https://github.com/sakura-ariga/MOMA_diversity_analysis.git."
 date: "`r Sys.time()`"
 date-format: "D MMMM YYYY"
-abstract: "The MoMA's public GitHub data on their exhibits and collections was analyzed to determine how diverse the artists and directors at the MoMA are. It was found that the MoMA is comprised largely of white men, but that this relationship has changed with time. This finding gives quantitative proof of the need for more representation within not jus the MoMA, but all American museums as a whole."
+abstract: "The MoMA's public GitHub data on their exhibits and collections was analyzed to determine how diverse the artists and directors at the MoMA are in terms of gender and nationality. It was found that the MoMA is comprised largely of American men and particularly lacking in their representation of women, both as artists and as directors and department heads. However, it was found that women representation has a positive relationship with time, indicating that the MoMA's gender distribution has improved slightly over time. This finding gives quantitative proof of the need for more gender representation in the MoMA, both in the artists displayed and in the top decision-making staff hired."
 format: pdf
+toc: true
 number-sections: true
 bibliography: references.bib
 ---
@@ -38,7 +39,7 @@ Diversity in cultural institutions is a topic that is increasingly being discuss
 
 This paper will investigate the level of diversity in one such museum: the Museum of Modern Art (also known as MoMA). Founded in 1929, the MoMA, as its name suggests, houses a collection of contemporary art pieces. It was originally created to go against traditional art museums by housing only modern art, and has since grown to become an influential cultural institution [@MoMA]. Using data made publicly available on the MoMA's GitHub account, this paper aims to evaluate how diverse the artists of the artworks on display are, as well as how diverse the directors and department heads who chose to display these artworks are, in terms of gender and nationality. Thus, the estimand is: the percentage of artists, directors, and department heads in the MoMA's history who are / were not white men.
 
-It was found that the MoMA's artists and directors were predominantly men. Simple linear regression models show that time affects this percentage of female artists, directors, and department heads in that the number of female artists has increased on average by ___ percentage points per year, while the number of female directors and department heads has increased on average by 0.25 percentage points per year. These findings are important because they provide numerical proof of the lack of gender diversity in the MoMA, both in the artists displayed and in the directors and department heads who choose the artists to display, which could motivate the MoMA to take active steps to better the gender representation within their institution. 
+It was found that the MoMA's artists and directors were predominantly men. Simple linear regression models show that time affects this percentage of female artists, directors, and department heads in that the number of female artists has increased on average by 0.08 percentage points per year, while the number of female directors and department heads has increased on average by 0.24 percentage points per year. It was also found that the percentage of female directors and department heads has a positive relationship with the percentage of female artists displayed, with an increase of an average of 0.10 percentage points in women artists with every 1% increase of women directors and department heads. These findings are important because they provide numerical proof of the lack of gender diversity in the MoMA, both in the artists displayed and in the directors and department heads who choose the artists to display, which could motivate the MoMA to take active steps to better the gender representation within their institution. 
 
 This paper's structure will begin by explaining the MoMA's publicly made available data regarding its artists and staff that is the subject of analysis. It will then explore this data to understand overall trends in nationality and gender distribution in the MoMA. Thirdly, linear models will be used to further analyze the MoMA's gender distribution and its changes over time. Finally, key findings, limitations, and next steps will be discussed.
 
@@ -54,8 +55,8 @@ This report was created using the R statistical programming language [@R]. For t
 
 This report selects 7 variables for analysis from the MoMA exhibition index dataset and 6 variables from the directors and department heads. Variables regarding social background, specifically gender and nationality, were chosen in order to measure diversity within the MoMA.
 
-@tbl-exhibits shows the 7 variables of the MoMA exhibition index dataset and the first 10 rows of it, where each row represents a different individual constituent in the exhibit. The Exhibition Title variable refers to the exhibit name. The Name variable indicates the artist. Nationality indicates the individual's nationality (e.g. "American") and is investigated further in @_____. Gender has two options of "Male" or "Female". Exhibition Start and Exhibition End indicate the time period that the exhibit was displayed at the MoMA for, and are the only numerical variables in this dataset.
-
+@tbl-exhibits shows the 7 variables of the MoMA exhibition index dataset and the first 10 rows of it, where each row represents a different individual constituent in the exhibit. The Exhibition Title variable refers to the exhibit name. The Name variable indicates the artist. Nationality indicates the individual's nationality (e.g. "American") and Gender has two options of "Male" or "Female". Exhibition Start and Exhibition End indicate the time period that the exhibit was displayed at the MoMA for, and are the only numerical variables in this dataset.
+\newpage
 ```{r}
 #| echo: false
 #| eval: true
@@ -63,16 +64,18 @@ This report selects 7 variables for analysis from the MoMA exhibition index data
 #| tbl-cap: "First ten rows of the MoMA Exhibits dataset"
 #| warning: false
 
+# Create table of first ten rows of the cleaned_momaexhibit_data to explain variables 
 cleaned_momaexhibit_data |> 
   slice(1:10) |> 
   knitr::kable(
     col.names = c("Exhibition Title", "Artist Name", "Nationality", "Gender", "Exhibition Start", "Exhibition End"),
     booktabs = TRUE,
     linesep = ""
-  )
+  ) |>
+  kable_styling(latex_options="scale_down")
 ```
 
-@tbl-directors shows the 6 variables of the MoMA directors and department heads dataset and the first 10 rows of it, where each row represents a different individual. The Department variable refers to the specific curatorial department within the MoMA that the individual is in charge of. As with the exhibition dataset, the Name variable indicates the person, Nationality indicates the individual's nationality (e.g. "American") and is investigated further in @_____, and Gender has two options of "Male" or "Female". Start and End indicate the time period that the individual held the position for, and are the only numerical variables in this dataset.
+@tbl-directors shows the 6 variables of the MoMA directors and department heads dataset and the first 10 rows of it, where each row represents a different individual. The Department variable refers to the specific curatorial department within the MoMA that the individual is in charge of. As with the exhibition dataset, the Name variable indicates the person, Nationality indicates the individual's nationality (e.g. "American"), and Gender has two options of "Male" or "Female". Start and End indicate the time period that the individual held the position for, and are the only numerical variables in this dataset.
 
 ```{r}
 #| echo: false
@@ -81,13 +84,15 @@ cleaned_momaexhibit_data |>
 #| tbl-cap: "First ten rows of the MoMA Directors and Department Heads dataset"
 #| warning: false
 
+# Create table of first ten rows of the cleaned_momadirectors_data to explain variables 
 cleaned_momadirectors_data |> 
   slice(1:10) |> 
   knitr::kable(
     col.names = c("Department", "Name", "Start", "End", "Nationality", "Gender"),
     booktabs = TRUE,
     linesep = ""
-  )
+  ) |>
+  kable_styling(latex_options="scale_down")
 ```
 
 The data was cleaned and modified using the tidyverse package [@tidyverse].
@@ -96,42 +101,42 @@ The data was cleaned and modified using the tidyverse package [@tidyverse].
 
 The data was visualized as bar graphs in order to best understand the distribution of the diversity indicators in the data (i.e. the Gender and Nationality variables).
 
-@fig-artistnationality displays the nationality distribution of the artists whose works have been displayed in exhibits in the MoMA. Aside from the large number of missing values (marked as NA at the rightmost bar), the most common nationality among is American, at 14,112 artists. The second highest nationality is French, at 3,747 artists - nearly a fifth of the American artists. The large number of American artists may be explained in part because the MoMA itself is American. It is surprising though that while the MoMA has presented 2,500+ exhibits throughout its history, \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
+@fig-artistnationality displays the nationality distribution of the artists whose works have been displayed in exhibits in the MoMA. Aside from the large number of missing values (marked as NA at the rightmost bar), the most common nationality among is American, at 14,112 artists. The second highest nationality is French, at 3,747 artists - nearly a fifth of the American artists. The large number of American artists may be explained in part because the MoMA itself is American. 
 
 ```{r}
 #| label: fig-artistnationality
 #| fig-cap: Nationality Distribution of Artists in MoMA Exhibits
 #| echo: false
 
-# Bar graph showing nationality distribution of Artists in MoMA exhibits
+# Bar graph showing nationality distribution of artists displayed in MoMA exhibits
 cleaned_momaexhibit_data |>
   ggplot(mapping = aes(x = Nationality)) +
-  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
-  geom_bar(position = "dodge2")+
+  theme(axis.text.x = element_text(angle = 90, hjust=1, size = 5)) +
+  geom_bar(position = "dodge2", fill = "cornflowerblue")+
   labs(x = "Nationality", y = "Number of Artists in MoMA Exhibits") 
 ```
 
 \newpage
 
-@fig-artistgender displays the gender distribution of the artists whose works have been displayed in exhibits in the MoMA. As the graph demonstrates, there is a much larger number of male artists who have been featured in the MoMA exhibits than female artists. With 22,518 male artists and 2,301 female artists, the male to female ratio is approximately 10:1, showing significant inequality in gender representation in MoMA artists. This may be partly explained by _____.
+@fig-artistgender displays the gender distribution of the artists whose works have been displayed in exhibits in the MoMA. As the graph demonstrates, there is a much larger number of male artists who have been featured in the MoMA exhibits than female artists. With 22,518 male artists and 2,301 female artists, the male to female ratio is approximately 10:1, showing significant inequality in gender representation in MoMA artists. 
 
 ```{r}
 #| label: fig-artistgender
 #| fig-cap: Gender Distribution of Artists in MoMA Exhibits
 #| echo: false
 
-# Bar graph showing gender distribution of Artists in MoMA exhibits
+# Bar graph showing gender distribution of artists displayed in MoMA exhibits
 cleaned_momaexhibit_data |> 
   count(Gender) |>
   ggplot(mapping = aes(x = Gender, y = n)) +
-  geom_col() + 
+  geom_col(fill = "mediumorchid") + 
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
   labs(x = "Gender", y = "Count of Artists in MoMA Exhibits") 
 ```
 
 \newpage
 
-@fig-staffnationality displays the nationality distribution of all of the directors and department heads at the MoMA. Here too, like in the nationality distribution of artists, there is a majority of American nationality among the directors and department heads, at 50 Americans. Compared to the 3 Swiss, 3 British, 2 German, 1 French, and 1 Austrian directors and department heads, \_\_\_\_\_\_\_\_\_\_.
+@fig-staffnationality displays the nationality distribution of all of the directors and department heads at the MoMA. Here too, like in the nationality distribution of artists, there is a majority of American nationality among the directors and department heads, at 50 out of 60 Americans. 
 
 ```{r}
 #| label: fig-staffnationality
@@ -142,13 +147,13 @@ cleaned_momaexhibit_data |>
 cleaned_momadirectors_data |>
   ggplot(mapping = aes(x = Nationality)) +
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
-  geom_bar(position = "dodge2")+
+  geom_bar(position = "dodge2", fill = "cornflowerblue")+
   labs(x = "Nationality", y = "Count of MoMA Directors and Department Heads") 
 ```
 
 \newpage
 
-@fig-staffgender displays the gender distribution of all of the directors and department heads at the MoMA. Here too, there are many more male directors and department heads compared to female department heads. With 53 male directors and department heads and 12 female directors and department heads, the male to female ratio is approximately 4:1, showing inequality in gender representation in MoMA leadership. This may be partly explained by \_\_\_\_\_\_\_\_\_\_.
+@fig-staffgender displays the gender distribution of all of the directors and department heads at the MoMA. Here too, there are many more male directors and department heads compared to female department heads. With 53 male directors and department heads and 12 female directors and department heads, the male to female ratio is approximately 4:1, showing inequality in gender representation in MoMA leadership. 
 
 ```{r}
 #| label: fig-staffgender
@@ -159,7 +164,7 @@ cleaned_momadirectors_data |>
 cleaned_momadirectors_data |>
   ggplot(mapping = aes(x = Gender)) +
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
-  geom_bar(position = "dodge2")+
+  geom_bar(position = "dodge2", fill = "mediumorchid")+
   labs(x = "Gender", y = "Count of MoMA Directors and Department Heads")
 ```
 
@@ -209,24 +214,22 @@ This model focuses on the following three aspects of MoMA artists:
 
 All of the models are run in R [@R] and displayed using modelsummary [@modelsummary].
 
-### Model Justification
+## Model Justification
 
 For the first two models regarding the effect of time on the percentage of female MoMA directors and on artists, time was chosen to be evaluated because there has been an increased push for gender equality in workplaces across the United States over the years. Because of this, a positive relationship between time in years and the percentage of female directors and female artists is expected for both the first linear regression model (regarding the effect of time on the percentage of female MoMA directors) and the second linear regression model (regarding the effect of time on the percentage of female MoMA artists).
 
 Given these two models, it is worth investigating whether there is a relationship between the percentage of female directors and the percentage of female artists, to determine whether female directors are more likely to be aware of gender inclusion and thus display more female artists than their male counterparts. Because women are subjects of workplace gender discrimination, they are more likely to be aware of the need for inclusive gender representation, so a positive relationship between time in years and the percentage of female directors and female artists is expected.
 
 # Results
-
-Our results are summarized in @tbl-modelresults.
+The results of the first linear regression model of the effect of time on the percentage of female MoMA directors is summarized in @tbl-modelresults1. The prediction of a positive relationship between time in years and the percentage of female MoMA directors proved correct, with the percentage of female directors increasing every year by 0.25 percentage points since the MoMA's founding in 1929. We know that this finding is significant because the p-value of this model is less than the threshold of 0.05. @fig-model1 demonstrates this  relationship as a scatterplot, better visualizing the positive linear relationship between the amount of women leaders in the MoMA and time. 
 
 ```{r}
-#| label: fig-model1
-#| fig-cap: Linear regression model of the effect of time on the percentage of female MoMA directors
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
 
+# Import linear regression model of the effect of time on percentage of female MoMA directors
 model_directors_percentage_female <-
   readRDS(file = here::here("outputs/models/model_directors_percentage_female.rds"))
 ```
@@ -238,6 +241,7 @@ model_directors_percentage_female <-
 #| tbl-cap: "Explanatory model of percentage of female MoMA directors based on year"
 #| warning: false
 
+# Table showing results of model of the effect of time on percentage of female MoMA directors
 modelsummary::modelsummary(
   list(
     "First model" = model_directors_percentage_female
@@ -247,13 +251,35 @@ modelsummary::modelsummary(
 ```
 
 ```{r}
-#| label: fig-model2
-#| fig-cap: Linear regression model of the effect of exhibit year on the percentage of female MoMA artists
+#| label: fig-model1
+#| fig-cap: Linear model of percentage of female MoMA directors by year
+#| echo: false
+#| warning: false
+
+model_directors_percentage_female |>
+  ggplot(aes(x = Year, y = PercentageFemale)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(
+    method = "lm",
+    se = TRUE,
+    color = "black",
+    linetype = "dashed",
+    formula = "y ~ x"
+  ) +
+  labs(
+    x = "Time (Years)",
+    y = "Percentage of Female MoMA Directors"
+  ) 
+```
+\newpage
+The results of the second linear regression model of the effect of time on the percentage of female MoMA artists is summarized in @tbl-modelresults2. The prediction of a positive relationship between time in years and the percentage of female MoMA artists proved correct, with the percentage of female artists increasing every year by 0.08 percentage points since the MoMA's founding in 1929. This finding is significant because the p-value of this model is less than the threshold of 0.05. @fig-model2 demonstrates this  relationship as a scatterplot, better visualizing the positive linear relationship between the amount of women artists who have been displayed in MoMA exhibits and time. 
+```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
 
+# Import linear regression model of the effect of time on percentage of female MoMA artists
 model_exhibits_percentage_female <-
   readRDS(file = here::here("outputs/models/model_exhibits_percentage_female.rds"))
 ```
@@ -265,6 +291,7 @@ model_exhibits_percentage_female <-
 #| tbl-cap: "Explanatory model of percentage of female MoMA artists based on exhibit year"
 #| warning: false
 
+# Table showing results of model of the effect of time on percentage of female MoMA artists
 modelsummary::modelsummary(
   list(
     "Second model" = model_exhibits_percentage_female
@@ -274,13 +301,37 @@ modelsummary::modelsummary(
 ```
 
 ```{r}
-#| label: fig-model3
-#| fig-cap: Linear regression model of the effect of time and percentage of female MoMA directors on the percentage of female MoMA artists selected for exhibits
+#| label: fig-model2
+#| fig-cap: Linear model of percentage of female MoMA artists by year
+#| echo: false
+#| warning: false
+
+model_exhibits_percentage_female |>
+  ggplot(aes(x = Year, y = PercentageFemale)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(
+    method = "lm",
+    se = TRUE,
+    color = "black",
+    linetype = "dashed",
+    formula = "y ~ x"
+  ) +
+  labs(
+    x = "Time (Years)",
+    y = "Percentage of Female MoMA Artists"
+  ) 
+```
+
+\newpage
+
+The results of the third linear regression model of the effect of time and the percentage of female MoMA directors on the percentage of female MoMA artists is summarized in @tbl-modelresults3. The prediction of a positive relationship between time in years and the percentage of female directors and the percentage of female MoMA artists proved correct, with the percentage of female artists increasing by 0.10 percentage points with every 1% increase in the percentage of female directors. 
+```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
 
+# Import linear regression model of the effect of time and percentage of female MoMA directors on percentage of female MoMA artists
 model_exhibits_on_directors <-
   readRDS(file = here::here("outputs/models/model_exhibits_on_directors.rds"))
 ```
@@ -292,6 +343,7 @@ model_exhibits_on_directors <-
 #| tbl-cap: "Explanatory model of percentage of female MoMA artists based on exhibit year and percentage of female MoMA directors "
 #| warning: false
 
+# Table showing results of model of the effect of time and percentage of female MoMA directors on percentage of female MoMA artists
 modelsummary::modelsummary(
   list(
     "Third model" = model_exhibits_on_directors
@@ -300,20 +352,24 @@ modelsummary::modelsummary(
 )
 ```
 
+\newpage
+
 # Discussion
 
-## Gender distribition {#sec-first-point}
+## Gender Distribution 
+From @fig-artistgender and @fig-staffgender, we see that there is a significant gap between representation of men versus women in the MoMA, both for the artists displayed and for the museum staff with the most power. Comparing @fig-artistgender and @fig-staffgender, the men:women ratio is more unequal in the artists, at a ratio of 10:1, than in the directors and department heads, at a ratio of 4:1. 
 
-## Nationality distribition {#sec-second-point}
+This distribution is surprising, especially given that the MoMA was founded due to the works and ideas of women: Lillie P. Bliss, Mary Quinn Sullivan, and Abby Aldrich Rockefeller - three influential women who were patrons of the arts in the 1920s [@MoMA]. One potential reason for this could be American society's historical attitude towards women versus men, tending to elevate and encourage men to pursue careers as artists or museum curators and discouraging women to. Another reason could be related to the findings of the third model found in @tbl-modelresults3: if women directors and department heads are more likely to choose women artists' work to exhibit, the same may go for men directors and department heads with men artists. These two reasons could be related to each other as well, with male directors and department heads more likely to choose male artists due to social conditioning from society's expectations of gender roles. 
 
-## Analyzing the model: is time a factor? {#sec-third-point}
+While the above models (found in @fig-model1, @fig-model2, @tbl-modelresults3) show that change has occurred and that the percentage of women represented in the MoMA's displayed artists and decision-making staff has increased over time, there is still much more room for improvement. As an institution with "modern" in its name, the MoMA should act as a role model for other cultural institutions and be an active leader in incorporating more diversity in the museum, both in showcasing more female artists and in hiring more female directors and department heads. This holds true especially now that it has been nearly a century since the MoMA's opening and thus much more modern art has been created and can be displayed.
 
-## Comparing artists vs directors {#sec-fourth-point}
+## Nationality Distribution 
+@fig-artistnationality and @fig-staffnationality show us that the museum is predominantly made up of American representation, both in its artists and in its decision-making staff. Most interesting is that the nationalities most represented in the artists is also represented well in the directors and department heads: American, French, British. One possible explanation of this is that these three countries place a heavy emphasis on the modern arts, and so produce many artists and museum staff. Another explanation could be that the MoMA places a eurocentric, Western-heavy emphasis on their exhibits, and thus is biased towards selecting American, French, and British artists and staff. Because nationality is not the best indicator for social inclusion practices, analysis on racial discrimination cannot be made here from this data.
 
-## Weaknesses and next steps
+## Weaknesses and Next Steps
+One weakness of this analysis is the binary understanding of gender as only male or female. This excludes artists, directors, and department heads who do not identify within this gender binary and thus this analysis was not able to completely measure gender diversity in the MoMA. Another bias present in this analysis is the removal of missing values that occurred during the data cleaning step of this paper, which made up a large number of responses, particularly in the gender of artists. This inevitably led to the results of the gender distribution analysis being biased and not entirely accurate. 
 
--   a LOT of NAs in the exhibit dataset, especially regarding artist gender, so results are skewed bc of that
--   binary understanding of gender that is exclusive
+Thus, an appropriate next step would be to conduct more research on the demographics of the artists, directors, and department heads of the MoMA so that a more accurate and meaningful analysis can be conducted. Not only would this account for some of the missing values that were excluded in this paper, this could result in analysis on racial equality in the MoMA. While the nationality variable that was analyzed in this paper was helpful in understanding some aspect of inclusion in the MoMA, in a museum that is so dominated by Americans, both as artists and as decision-making museum staff, an analysis on the racial representation in the MoMA would yield more actionable insights. 
 
 \newpage
 
