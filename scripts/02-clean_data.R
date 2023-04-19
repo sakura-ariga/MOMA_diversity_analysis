@@ -19,15 +19,15 @@ raw_momadirectors_data <- read_csv("inputs/data/MoMADirectorsDepartmentHeads.csv
 cleaned_momaexhibit_data <- 
   raw_momaexhibit_data |> 
   select(ExhibitionTitle, ExhibitionBeginDate, ExhibitionEndDate, ExhibitionRole, 
-         ExhibitionRoleinPressRelease, ConstituentType, DisplayName, AlphaSort, 
-         Institution, Nationality, ConstituentBeginDate, ConstituentEndDate, ArtistBio,
+         ConstituentType, DisplayName, 
+         Institution, Nationality, ConstituentBeginDate, ConstituentEndDate,
          Gender)
 # Remove unneeded info in Directors data
 cleaned_momadirectors_data <- 
   raw_momadirectors_data |> 
   select(DepartmentFullName, DepartmentBeginYear, DepartmentEndYear, DisplayName, PositionNote, 
-         PositionBeginYear, PositionEndYear, ConstituentType, AlphaSort, Nationality, 
-         ConstituentBeginDate, ConstituentEndDate, ArtistBio, Gender)
+         PositionBeginYear, PositionEndYear, Nationality, 
+         ConstituentBeginDate, ConstituentEndDate, Gender)
 
 # Create age variables in Directors data by subtracting start dates from end dates 
 cleaned_momadirectors_data <-
