@@ -50,7 +50,6 @@ summary(model_directors_percentage_female)
 # Create dataset for model 
 exhibits_gender_percentage <- 
     cleaned_momaexhibit_data |> 
-    filter(ExhibitionRole == "Artist") |> 
     group_by(ExhibitionTitle, Gender, Year) |> 
     summarise(n = n()) |> 
     group_by(ExhibitionTitle, Year) |> 
