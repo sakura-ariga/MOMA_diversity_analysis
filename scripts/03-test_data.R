@@ -18,27 +18,19 @@ directors_simulated_data <- read_csv("outputs/data/directors_simulated_data.csv"
 #### Test data ####
 artists_simulated_data$percentage_female |> 
   class() == "numeric"
-
 artists_simulated_data$percentage_notwhite |> 
   class() == "numeric"
-
 artists_simulated_data$year |> 
   class() == "numeric"
-
 artists_simulated_data$year |> 
   min() == 1929
-
 directors_simulated_data$year |> 
   max() == 2023
-
 directors_simulated_data$percentage_female |> 
   min() >= 0
-
 directors_simulated_data$percentage_female |> 
   max() <= 100
-
 directors_simulated_data$percentage_notwhite |> 
   min() >= 0
-
 directors_simulated_data$percentage_notwhite |> 
   max() <= 100

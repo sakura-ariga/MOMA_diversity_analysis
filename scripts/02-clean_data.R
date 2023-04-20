@@ -62,6 +62,9 @@ cleaned_momadirectors_data <-
 #   cleaned_momaexhibit_data |>
 #   filter(Gender == "Female" | Gender == "Male")
 
+cleaned_momaexhibit_data <- 
+  cleaned_momaexhibit_data[Gender == 'Female']
+
 #### Save data ####
 write_csv(cleaned_momaexhibit_data, "outputs/data/cleaned_momaexhibit_data")
 write_csv(cleaned_momadirectors_data, "outputs/data/cleaned_momadirectors_data")

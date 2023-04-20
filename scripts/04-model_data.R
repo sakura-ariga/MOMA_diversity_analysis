@@ -8,7 +8,11 @@
 
 #### Workspace setup ####
 library(tidyverse)
-library(rstanarm)
+
+
+#### Download data ####
+cleaned_momaexhibit_data <- read_csv("outputs/data/cleaned_momaexhibit_data")
+cleaned_momadirectors_data <- read_csv("outputs/data/cleaned_momadirectors_data")
 
 
 #### Model 1 ####
@@ -74,13 +78,6 @@ summary(model_exhibits_percentage_female)
 #### Model 3 ####
 merged_gender_percentage <- 
   left_join(exhibits_gender_percentage, directors_gender_percentage, by = "Year")
-
-# merged_gender_percentage <- 
-#   merged_gender_percentage |> 
-#   rename = ("PercentageMaleArtists" = "PercentageMale.x")
-#             "PercentageFemaleArtists" = "PercentageFemale.x",
-#             "PercentageMaleDirectors" = "PercentageMale.y",
-#             "PercentageFemaleDirectors" = "PercentageFemale.y")
 
 model_exhibits_on_directors <- 
   lm(
